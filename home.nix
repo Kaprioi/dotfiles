@@ -23,6 +23,22 @@ in
   fonts.fontconfig.enable = true;
   home.sessionVariables.EDITOR = "nvim";
 
+  programs.zsh = {
+    enable = true;
+    autosuggestion.enable = true;      # ghost text from history
+    syntaxHighlighting.enable = true;  # commands turn green when valid
+    initContent = ''
+      bindkey '^f' autosuggest-accept
+    '';
+    shellAliases = {
+      ".." = "cd ..";
+      add = "git add .";
+      push = "git push";
+      pull = "git pull";
+      m = "git switch main";
+    };
+  };
+
   # Edit-in-place: the real file stays in my repo, ~/.config just points at it.
   home.file.".config/wezterm".source =
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/wezterm";
