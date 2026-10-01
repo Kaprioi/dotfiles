@@ -8,6 +8,7 @@
 
   system.primaryUser = "kriskekovic";
   system.stateVersion = 6;
+  users.users.kriskekovic.home = "/Users/kriskekovic";
 
   programs.zsh.enable = true;
 
