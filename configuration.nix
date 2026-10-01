@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   # Determinate Nix manages Nix itself, so nix-darwin must not
   nix.enable = false;
@@ -11,16 +11,27 @@
 
   programs.zsh.enable = true;
 
+  homebrew = {
+    enable = true;
+    taps = builtins.attrNames config.nix-homebrew.taps;
+    onActivation.cleanup = "none";   # won't remove anything you installed by hand
+    brews = [ ];
+    casks = [
+      # "google-chrome"
+      # "visual-studio-code"
+    ];
+  };
+
   system.defaults = {
     NSGlobalDomain = {
       AppleInterfaceStyle = "Dark";
-      KeyRepeat = 2;           # fast key repeat
-      InitialKeyRepeat = 15;   # short delay before repeat
+      KeyRepeat = 2;
+      InitialKeyRepeat = 15;
       AppleShowAllExtensions = true;
     };
     dock.autohide = true;
-    finder.FXPreferredViewStyle = "Nlsv";  # list view by default
-    finder.CreateDesktop = false;          # clean desktop
-    trackpad.Clicking = true;              # tap to click
+    finder.FXPreferredViewStyle = "Nlsv";
+    finder.CreateDesktop = false;
+    trackpad.Clicking = true;
   };
 }
